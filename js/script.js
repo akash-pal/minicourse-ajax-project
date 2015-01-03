@@ -18,6 +18,9 @@ function loadData() {
     var $street = $('#street').val();
     var $city = $('#city').val();
     $greeting.text("So, you want to live at " + $street + ", " + $city + "?")
+
+    var $source = "https://maps.googleapis.com/maps/api/streetview?size=600x400&location=" + $street + ", " + $city ;
+    $body.append('<img class="bgimg" src="' + $source + '">');
     return false;
 };
 
