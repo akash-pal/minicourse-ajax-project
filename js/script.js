@@ -14,7 +14,10 @@ function loadData() {
     // load streetview
 
     // YOUR CODE GOES HERE!
-
+    
+    var $street = $('#street').val();
+    var $city = $('#city').val();
+    $greeting.text("So, you want to live at " + $street + ", " + $city + "?")
     return false;
 };
 
