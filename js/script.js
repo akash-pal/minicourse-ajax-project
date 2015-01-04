@@ -37,7 +37,14 @@ function loadData() {
         $nytHeaderElem .text("New York Times Articles could not be loaded");    
     });
 
+    //No error hadling available for JSON-P so timeout set to 8ms
+
+    var wikiRequestTimeout = setTimeout(function(){
+        $wikiElem.text("failed to get wikipedia resources");
+    },8000); 
+
     //AJAX request to wikipedia for articles about a city
+
     $.ajax({
         url:'http://en.wikipedia.org/w/api.php?format=json&action=opensearch&search='+ $city,
         dataType:"jsonp",
@@ -49,10 +56,11 @@ function loadData() {
                     console.log(data[3][i]);
                     $wikiElem.append('<li></li>');  
                     $('li:last').append('<a href="'+ data[3][i] +'">'+ data[1][i] +'</a>');
-                   }    
+                   };
+
+                   clearTimeout(wikiRequestTimeout);   //calling the timeout function
                }
        })
-
     return false;
 };
 
