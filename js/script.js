@@ -33,6 +33,8 @@ function loadData() {
             $('.articles:last').append('<a href="'+ value.web_url +'">'+ value.snippet +'</a>');
             $('.articles:last').append('<p>'+ value.lead_paragraph +'</p>');         
        })    
+    }).error(function(){                                                      //error handling NY Times Article
+        $nytHeaderElem .text("New York Times Articles could not be loaded");    
     });
     return false;
 };
