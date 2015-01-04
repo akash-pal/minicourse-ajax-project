@@ -28,7 +28,7 @@ function loadData() {
 
     $.getJSON($url,function(data){
        $.each(data.response.docs,function(key, value) {
-            console.log(value);
+            //console.log(value);
             $nytElem.append('<li class="articles"></li>');
             $('.articles:last').append('<a href="'+ value.web_url +'">'+ value.snippet +'</a>');
             $('.articles:last').append('<p>'+ value.lead_paragraph +'</p>');         
@@ -36,6 +36,23 @@ function loadData() {
     }).error(function(){                                                      //error handling NY Times Article
         $nytHeaderElem .text("New York Times Articles could not be loaded");    
     });
+
+    //AJAX request to wikipedia for articles about a city
+    $.ajax({
+        url:'http://en.wikipedia.org/w/api.php?format=json&action=opensearch&search='+ $city,
+        dataType:"jsonp",
+        success:function(data)
+               {
+                   for(var i=0;i<data[1].length;i++)
+                   {
+                    console.log(data[1][i]);
+                    console.log(data[3][i]);
+                    $wikiElem.append('<li></li>');  
+                    $('li:last').append('<a href="'+ data[3][i] +'">'+ data[1][i] +'</a>');
+                   }    
+               }
+       })
+
     return false;
 };
 
